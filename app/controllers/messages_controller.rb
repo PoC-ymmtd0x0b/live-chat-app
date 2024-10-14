@@ -2,7 +2,8 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!, only: :index
 
   def index
-    messages = Message.all
+    # messages = Message.all
+    messages = Message.preload(:user, likes: :user)
     messages_array = messages.map do |message|
       {
         id: message.id,
